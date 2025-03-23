@@ -62,7 +62,7 @@ This project follows clean architecture principles with a focus on simplicity:
   - "United Kingdom"
 - Examples of invalid names:
   - "Sp@in" (not from predefined list)
-  - "United  States" (consecutive spaces)
+  - "United     States" (consecutive spaces)
 
 ### Scores
 - Must be non-negative integers
