@@ -1,46 +1,27 @@
 package io.eagle44;
 
-import io.eagle44.console.ConsoleInput;
-import io.eagle44.console.ConsoleOutput;
-import io.eagle44.command.model.Command;
-import io.eagle44.command.model.CommandType;
-import io.eagle44.country.model.Country;
-import io.eagle44.country.service.CountryValidationService;
-import io.eagle44.scoreboard.Scoreboard;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
-import java.util.Scanner;
-import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class LiveScoreboardItTest {
 
     private ByteArrayInputStream inputStream;
     private ByteArrayOutputStream outputStream;
     private PrintStream originalOut;
-    private ConsoleInput consoleInput;
-    private ConsoleOutput consoleOutput;
-    private CountryValidationService countryValidationService;
-    private Scoreboard scoreboard;
 
     @BeforeEach
     void setUp() {
         originalOut = System.out;
         outputStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(outputStream));
-        
-        Set<String> validCountries = TestFixtures.VALID_COUNTRIES;
-        
-        countryValidationService = new CountryValidationService(validCountries);
-        scoreboard = new Scoreboard();
-        consoleInput = new ConsoleInput(new Scanner(System.in));
-        consoleOutput = new ConsoleOutput();
     }
 
     @AfterEach
@@ -64,7 +45,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();
@@ -91,7 +72,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();
@@ -115,7 +96,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();
@@ -140,7 +121,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();
@@ -162,7 +143,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();
@@ -185,7 +166,7 @@ class LiveScoreboardItTest {
         System.setIn(inputStream);
 
         // When
-        runApplication();
+        LiveScoreboard.main(null);
 
         // Then
         String output = outputStream.toString();

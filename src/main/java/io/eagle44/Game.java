@@ -10,12 +10,12 @@ public final class Game {
     private final int awayScore;
     private final LocalDateTime startTime;
 
-    private Game(Country homeTeam, Country awayTeam, int homeScore, int awayScore, LocalDateTime startTime) {
+    public Game(Country homeTeam, Country awayTeam, int homeScore, int awayScore) {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.homeScore = homeScore;
         this.awayScore = awayScore;
-        this.startTime = startTime;
+        this.startTime = LocalDateTime.now();
     }
 
     public static Game start(Country homeTeam, Country awayTeam) {
@@ -25,14 +25,14 @@ public final class Game {
         if (homeTeam.equals(awayTeam)) {
             throw new IllegalArgumentException("Home and away teams cannot be the same");
         }
-        return new Game(homeTeam, awayTeam, 0, 0, LocalDateTime.now());
+        return new Game(homeTeam, awayTeam, 0, 0);
     }
 
     public Game updateScore(int newHomeScore, int newAwayScore) {
         if (newHomeScore < 0 || newAwayScore < 0) {
             throw new IllegalArgumentException("Scores cannot be negative");
         }
-        return new Game(homeTeam, awayTeam, newHomeScore, newAwayScore, startTime);
+        return new Game(homeTeam, awayTeam, newHomeScore, newAwayScore);
     }
 
     public Country getHomeTeam() {

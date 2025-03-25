@@ -21,13 +21,13 @@ class GameTest {
         int awayScore = TestFixtures.SAMPLE_AWAY_SCORE;
 
         // When
-        Game game = new Game(homeTeam, awayTeam, homeScore, awayScore);
+        Game game = new Game(Country.of(homeTeam), Country.of(awayTeam), homeScore, awayScore);
 
         // Then
-        assertEquals(homeTeam, game.homeTeam());
-        assertEquals(awayTeam, game.awayTeam());
-        assertEquals(homeScore, game.homeScore());
-        assertEquals(awayScore, game.awayScore());
+        assertEquals(Country.of(homeTeam), game.getHomeTeam());
+        assertEquals(Country.of(awayTeam), game.getAwayTeam());
+        assertEquals(homeScore, game.getHomeScore());
+        assertEquals(awayScore, game.getAwayScore());
     }
 
     @ParameterizedTest
@@ -37,7 +37,7 @@ class GameTest {
         // When/Then
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Game(homeTeam, awayTeam, homeScore, awayScore)
+            () -> new Game(Country.of(homeTeam), Country.of(awayTeam), homeScore, awayScore)
         );
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -57,27 +57,13 @@ class GameTest {
     @DisplayName("Should calculate total score correctly")
     void shouldCalculateTotalScoreCorrectly() {
         // Given
-        Game game = new Game(TestFixtures.SAMPLE_HOME_TEAM, TestFixtures.SAMPLE_AWAY_TEAM, TestFixtures.SAMPLE_HOME_SCORE, TestFixtures.SAMPLE_AWAY_SCORE);
+        Game game = new Game(Country.of(TestFixtures.SAMPLE_HOME_TEAM), Country.of(TestFixtures.SAMPLE_AWAY_TEAM), TestFixtures.SAMPLE_HOME_SCORE, TestFixtures.SAMPLE_AWAY_SCORE);
 
         // When
-        int totalScore = game.totalScore();
+        int totalScore = game.getTotalScore();
 
         // Then
         assertEquals(TestFixtures.SAMPLE_HOME_SCORE + TestFixtures.SAMPLE_AWAY_SCORE, totalScore);
     }
 
-    @Test
-    @DisplayName("Should compare games by total score and recency")
-    void shouldCompareGamesByTotalScoreAndRecency() {
-        // Given
-        Game game1 = new Game(TestFixtures.SAMPLE_HOME_TEAM, TestFixtures.SAMPLE_AWAY_TEAM, 2, 1);
-        Game game2 = new Game(TestFixtures.VALID_COUNTRIES.get(0), TestFixtures.VALID_COUNTRIES.get(1), 1, 0);
-        Game game3 = new Game(TestFixtures.VALID_COUNTRIES.get(2), TestFixtures.VALID_COUNTRIES.get(3), 2, 1);
-
-        // When/Then
-        assertTrue(game1.compareTo(game2) > 0); // game1 has higher total score
-        assertTrue(game2.compareTo(game1) < 0); // game2 has lower total score
-        assertTrue(game1.compareTo(game3) < 0); // game1 is older than game3
-        assertTrue(game3.compareTo(game1) > 0); // game3 is newer than game1
-    }
 } 

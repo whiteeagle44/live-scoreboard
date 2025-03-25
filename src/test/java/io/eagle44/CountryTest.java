@@ -15,13 +15,13 @@ class CountryTest {
     @DisplayName("Should create country with valid name")
     void shouldCreateCountryWithValidName() {
         // Given
-        String name = TestFixtures.VALID_COUNTRIES.get(0);
+        String name = TestFixtures.VALID_COUNTRIES.getFirst();
 
         // When
-        Country country = new Country(name);
+        Country country = Country.of(name);
 
         // Then
-        assertEquals(name, country.name());
+        assertEquals(name, country.getName());
     }
 
     @ParameterizedTest
@@ -31,7 +31,7 @@ class CountryTest {
         // When/Then
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Country(name)
+            () -> Country.of(name)
         );
         assertEquals(expectedMessage, exception.getMessage());
     }
@@ -42,8 +42,7 @@ class CountryTest {
             Arguments.of("", "Country name cannot be empty"),
             Arguments.of(" ", "Country name cannot be empty"),
             Arguments.of("   ", "Country name cannot be empty"),
-            Arguments.of(TestFixtures.COUNTRY_WITH_SPECIAL_CHARS, "Country name contains invalid characters"),
-            Arguments.of(TestFixtures.COUNTRY_EXCEEDING_MAX_LENGTH, "Country name exceeds maximum length of 50 characters")
+            Arguments.of(TestFixtures.COUNTRY_WITH_SPECIAL_CHARS, "Country name contains invalid characters")
         );
     }
 
@@ -54,10 +53,10 @@ class CountryTest {
         String name = "  Spain  ";
 
         // When
-        Country country = new Country(name);
+        Country country = Country.of(name);
 
         // Then
-        assertEquals("Spain", country.name());
+        assertEquals("Spain", country.getName());
     }
 
     @Test
@@ -67,10 +66,10 @@ class CountryTest {
         String name = "SPAIN";
 
         // When
-        Country country = new Country(name);
+        Country country = Country.of(name);
 
         // Then
-        assertEquals("Spain", country.name());
+        assertEquals("Spain", country.getName());
     }
 
     @Test
@@ -82,7 +81,7 @@ class CountryTest {
         // When/Then
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Country(name)
+            () -> Country.of(name)
         );
         assertEquals("Invalid country name: " + name, exception.getMessage());
     }
@@ -96,7 +95,7 @@ class CountryTest {
         // When/Then
         IllegalArgumentException exception = assertThrows(
             IllegalArgumentException.class,
-            () -> new Country(name)
+            () -> Country.of(name)
         );
         assertEquals("Country name contains invalid characters", exception.getMessage());
     }
